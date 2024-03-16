@@ -32,6 +32,9 @@ async function run() {
       .db("varsity-admin")
       .collection("students");
     const adminsCollection = client.db("varsity-admin").collection("admins");
+    const teachersCollection = client
+      .db("varsity-admin")
+      .collection("teachers");
     const departmentsCollection = client
       .db("varsity-admin")
       .collection("departments");
@@ -39,6 +42,12 @@ async function run() {
     //get all students
     app.get("/students", async (req, res) => {
       const result = await studentsCollection.find().toArray();
+      res.send(result);
+    });
+
+    //get all teachers
+    app.get("/teachers", async (req, res) => {
+      const result = await teachersCollection.find().toArray();
       res.send(result);
     });
 
@@ -69,7 +78,6 @@ async function run() {
     app.put("/students/:id", async (req, res) => {
       const id = req.params.id;
       const studentDetails = req.body;
-
       console.log(id, user);
 
       const filter = { _id: new ObjectId(id) };
