@@ -35,6 +35,12 @@ async function run() {
       .db("varsity-admin")
       .collection("departments");
 
+    //get all students
+    app.get("/students", async (req, res) => {
+      const result = await studentsCollection.find().toArray();
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
