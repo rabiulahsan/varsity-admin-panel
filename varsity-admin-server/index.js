@@ -40,7 +40,7 @@ async function run() {
       .collection("departments");
 
     //get all students
-    app.get("/students", async (req, res) => {
+    app.get("/allstudents", async (req, res) => {
       const result = await studentsCollection.find().toArray();
       res.send(result);
     });
@@ -50,6 +50,27 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await studentsCollection.findOne(query);
+      res.send(result);
+    });
+
+    // get specific students
+    app.get("/students", async (req, res) => {
+      const semester = parseInt(req.query.semester);
+      const dept_id = req.query.dept_id;
+
+      if (!semester && !dept_id) {
+        res.send([]);
+      }
+
+      let query = {};
+      if (req.query?.semester && req.query?.dept_id) {
+        query = {
+          semester: semester,
+          dept_id: dept_id,
+        };
+      }
+      console.log(query);
+      const result = await studentsCollection.find(query).toArray();
       res.send(result);
     });
 
