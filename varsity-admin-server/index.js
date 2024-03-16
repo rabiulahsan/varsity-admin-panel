@@ -45,24 +45,11 @@ async function run() {
       res.send(result);
     });
 
-    //get all teachers
-    app.get("/teachers", async (req, res) => {
-      const result = await teachersCollection.find().toArray();
-      res.send(result);
-    });
-
     // get a student
     app.get("/students/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await studentsCollection.findOne(query);
-      res.send(result);
-    });
-    // get a teacher
-    app.get("/teachers/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await teachersCollection.findOne(query);
       res.send(result);
     });
 
@@ -72,26 +59,12 @@ async function run() {
       const result = await studentsCollection.insertOne(newStudent);
       res.send(result);
     });
-    //post  a teacher
-    app.post("/teachers", async (req, res) => {
-      const newTeacher = req.body;
-      const result = await teachersCollection.insertOne(newTeacher);
-      res.send(result);
-    });
 
     // delete a student
     app.delete("/students/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await studentsCollection.deleteOne(query);
-      res.send(result);
-    });
-
-    // delete a teacher
-    app.delete("/teachers/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await teachersCollection.deleteOne(query);
       res.send(result);
     });
 
@@ -117,6 +90,35 @@ async function run() {
       res.send(result);
     });
 
+    //get all teachers
+    app.get("/teachers", async (req, res) => {
+      const result = await teachersCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get a teacher
+    app.get("/teachers/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await teachersCollection.findOne(query);
+      res.send(result);
+    });
+
+    //post  a teacher
+    app.post("/teachers", async (req, res) => {
+      const newTeacher = req.body;
+      const result = await teachersCollection.insertOne(newTeacher);
+      res.send(result);
+    });
+
+    // delete a teacher
+    app.delete("/teachers/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await teachersCollection.deleteOne(query);
+      res.send(result);
+    });
+
     //update a teacher
     app.put("/teachers/:id", async (req, res) => {
       const id = req.params.id;
@@ -136,6 +138,12 @@ async function run() {
         updatedTeacherDetails,
         options
       );
+      res.send(result);
+    });
+
+    //get all departments
+    app.get("/departments", async (req, res) => {
+      const result = await departmentsCollection.find().toArray();
       res.send(result);
     });
 
