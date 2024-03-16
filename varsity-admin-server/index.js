@@ -117,6 +117,28 @@ async function run() {
       res.send(result);
     });
 
+    //update a teacher
+    app.put("/teachers/:id", async (req, res) => {
+      const id = req.params.id;
+      const teacherDetails = req.body;
+      console.log(id, user);
+
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedTeacherDetails = {
+        $set: {
+          ...teacherDetails,
+        },
+      };
+
+      const result = await teachersCollection.updateOne(
+        filter,
+        updatedTeacherDetails,
+        options
+      );
+      res.send(result);
+    });
+
     //get all admins
     app.get("/admins", async (req, res) => {
       const result = await adminsCollection.find().toArray();
