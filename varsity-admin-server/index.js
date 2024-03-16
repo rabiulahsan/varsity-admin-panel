@@ -58,7 +58,7 @@ async function run() {
       const result = await studentsCollection.findOne(query);
       res.send(result);
     });
-    // get a teachers
+    // get a teacher
     app.get("/teachers/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -72,10 +72,10 @@ async function run() {
       const result = await studentsCollection.insertOne(newStudent);
       res.send(result);
     });
-    //post  a teachers
+    //post  a teacher
     app.post("/teachers", async (req, res) => {
       const newTeacher = req.body;
-      const result = await studentsCollection.insertOne(newTeacher);
+      const result = await teachersCollection.insertOne(newTeacher);
       res.send(result);
     });
 
@@ -84,6 +84,14 @@ async function run() {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await studentsCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // delete a teacher
+    app.delete("/teachers/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await teachersCollection.deleteOne(query);
       res.send(result);
     });
 
