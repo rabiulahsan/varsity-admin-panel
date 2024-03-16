@@ -31,6 +31,7 @@ async function run() {
     const studentsCollection = client
       .db("varsity-admin")
       .collection("students");
+    const adminsCollection = client.db("varsity-admin").collection("admins");
     const departmentsCollection = client
       .db("varsity-admin")
       .collection("departments");
@@ -38,6 +39,20 @@ async function run() {
     //get all students
     app.get("/students", async (req, res) => {
       const result = await studentsCollection.find().toArray();
+      res.send(result);
+    });
+
+    // post a admin
+    app.post("/admins", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const exist = await adminsCollection.findOne(query);
+
+      if (exist) {
+        return res.send({ message: "admin already exists" });
+      }
+
+      const result = await adminsCollection.insertOne(user);
       res.send(result);
     });
 
