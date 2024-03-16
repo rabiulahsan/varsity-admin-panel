@@ -49,6 +49,14 @@ async function run() {
       res.send(result);
     });
 
+    // delete a student
+    app.delete("/students/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await studentsCollection.deleteOne(query);
+      res.send(result);
+    });
+
     //get all admins
     app.get("/admins", async (req, res) => {
       const result = await adminsCollection.find().toArray();
