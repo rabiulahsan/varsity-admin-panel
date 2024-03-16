@@ -58,6 +58,13 @@ async function run() {
       const result = await studentsCollection.findOne(query);
       res.send(result);
     });
+    // get a teachers
+    app.get("/teachers/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await teachersCollection.findOne(query);
+      res.send(result);
+    });
 
     //post  a student
     app.post("/students", async (req, res) => {
