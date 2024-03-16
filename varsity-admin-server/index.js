@@ -72,6 +72,12 @@ async function run() {
       const result = await studentsCollection.insertOne(newStudent);
       res.send(result);
     });
+    //post  a teachers
+    app.post("/teachers", async (req, res) => {
+      const newTeacher = req.body;
+      const result = await studentsCollection.insertOne(newTeacher);
+      res.send(result);
+    });
 
     // delete a student
     app.delete("/students/:id", async (req, res) => {
