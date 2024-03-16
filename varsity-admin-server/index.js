@@ -65,6 +65,29 @@ async function run() {
       res.send(result);
     });
 
+    //update a student
+    app.put("/students/:id", async (req, res) => {
+      const id = req.params.id;
+      const studentDetails = req.body;
+
+      console.log(id, user);
+
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedstudentDetails = {
+        $set: {
+          ...studentDetails,
+        },
+      };
+
+      const result = await studentsCollection.updateOne(
+        filter,
+        updatedstudentDetails,
+        options
+      );
+      res.send(result);
+    });
+
     //get all admins
     app.get("/admins", async (req, res) => {
       const result = await adminsCollection.find().toArray();
