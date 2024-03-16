@@ -42,6 +42,12 @@ async function run() {
       res.send(result);
     });
 
+    //get all admins
+    app.get("/admins", async (req, res) => {
+      const result = await adminsCollection.find().toArray();
+      res.send(result);
+    });
+
     // post a admin
     app.post("/admins", async (req, res) => {
       const user = req.body;
