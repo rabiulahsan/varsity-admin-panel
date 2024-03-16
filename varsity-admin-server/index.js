@@ -42,6 +42,13 @@ async function run() {
       res.send(result);
     });
 
+    //post  a student
+    app.post("/students", async (req, res) => {
+      const newStudent = req.body;
+      const result = await studentsCollection.insertOne(newStudent);
+      res.send(result);
+    });
+
     //get all admins
     app.get("/admins", async (req, res) => {
       const result = await adminsCollection.find().toArray();
